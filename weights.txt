@@ -1,0 +1,10 @@
+string2:1
+string3:2
+mid0:3
+mid1:2
+mid2:1
+mid3:0
+potCon4:4
+activePot:50
+doubleTrap:10
+trapStack:5

@@ -1,0 +1,33 @@
+cluster: groups of clustered tiles. 
+    each tile placed is assigned to a list of other similarly colored tiles it is near.
+    tile looks to see if east/west, south, and south east/west neighbors are of similar color.
+    if similar, new tile joins list of neigbor.
+    if similar neighbors are in different groups, one group list gets appended to the other and is deleted.
+strings: number of similar tiles in a row.
+    every new tile placed looks for how many similar tiles it is in line with in any direction.
+    moveChecker returns the counts for each of the directions it checks.
+    each count is weighted depending on the count length.
+    if the count for any direction is 1, it is ignored.
+center control: how many of each tile are in the center.
+    points awarded every move based on the column a tile is placed in.
+    each column is weighted differently. 
+    (center column should be the highest weighted, but thats for the machine learning to figure out)
+double trap: a scenario in which two tiles, directly adjacent, could create a connect 4.
+    this trap means that, if played correctly, the player who owns the trap can almost never lose.
+    player will rush stack towards the double trap unless other player will inevitably win
+trap stack: a trap stack is the collection of tiles in the same column as a trap
+    each non-empty tile added to a trap stack will award points if it is the color of the trap, and subtract points if otherwise
+potential connect 4: a tile that if it were one color could create a connect 4
+    keeps track of this tile until it is over written by another tile
+    used to check for a double trap
+    potential fours award points while they are not over written
+    potential connect 4 are worth more points if they are in a lower row
+double active potential connect 4: active potential connect 4 are potential connect 4 tiles that can be played next turn
+    having more than one active potential connect 4 often guarentees a win
+    creating 1 active pot con 4 will not award points, but having two or more will award many points
+    2 active pots will award the same points as a greater count. the points do not scale
+win condition: checks to see if a move made creates any string of length 4 or greater.
+    provides a score ratio of 1.00 to the player meeting the win condition.
+    provides a score ratio of 0.00 to the other player.
+score ratio: converts each players points to a propertion, between 1 and 0, being a win and loss score respectively.
+    adds both players points together, then divides individual totals by combined total.
